@@ -95,3 +95,4 @@ while not result and len(possibilities) > 0:
 
 if len(possibilities) == 0:
     print("\nNo Winner for this game :( \n Try next time !")
+    
