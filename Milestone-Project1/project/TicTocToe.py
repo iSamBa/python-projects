@@ -58,30 +58,36 @@ print('\n Let\'s start with players choice, please enter the position coordinate
 possibilities = list(range(1,10))
 
 result = False
-while result==False :
+while result == False and len(possibilities) > 0:
         position_player1=int(input('\nPlayer 1 : '))
-        if position_player1 in possibilities :
+        loop = position_player1 in possibilities
+        while (loop == False):
+            print('Position already taken')
+            position_player1 = int(input('\nPlayer 1 : '))
+            loop = position_player1 in possibilities
+        else :
             possibilities.pop(possibilities.index(position_player1))
-            update(lst,position_player1,'x')
+            update(lst, position_player1, 'x')
             show(lst)
-            result=check(lst,'x')
-            if result :
+            result = check(lst, 'x')
+            if result:
                 print('\n\tCongratulations Player 1 ! You have just Won the game !')
                 break
 
-        else :
-           print('Position already taken')
-
         position_player2=int(input('\nPlayer 2 : '))
-        if position_player2 in possibilities:
+        loop = position_player2 in possibilities
+        while (loop == False):
+            print('Position already taken')
+            position_player2 = int(input('\nPlayer 2 : '))
+            loop = position_player2 in possibilities
+        else:
             possibilities.pop(possibilities.index(position_player2))
             update(lst, position_player2, '0')
             show(lst)
-            result=check(lst, 'o')
+            result = check(lst, 'x')
             if result:
                 print('\n\tCongratulations Player 2 ! You have just Won the game !')
                 break
 
-        else:
-            print('Position already taken')
-
+if len(possibilities) == 0 and result == False:
+    print("\nNO Winner for this game try next time !")
