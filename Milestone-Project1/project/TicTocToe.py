@@ -9,7 +9,7 @@ def instructions(main_list):
 
 def clear(main_list):
     for i in range(0, 9):
-        main_list[i] = '-'
+        main_list[i] = ' '
 
 
 def update(main_list, position, c):
@@ -40,9 +40,9 @@ def check(my_list, c):
 
 def show(main_list):
     print('\n')
-    print(main_list[:3])
-    print(main_list[3:6])
-    print(main_list[6:9])
+    print(str(main_list[0]) + '|' + str(main_list[1]) + '|' + str(main_list[2]))
+    print(str(main_list[3]) + '|' + str(main_list[4]) + '|' + str(main_list[5]))
+    print(str(main_list[6]) + '|' + str(main_list[7]) + '|' + str(main_list[8]))
 
 
 game = []
@@ -95,4 +95,3 @@ while not result and len(possibilities) > 0:
 
 if len(possibilities) == 0:
     print("\nNo Winner for this game :( \n Try next time !")
-    

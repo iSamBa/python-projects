@@ -4,7 +4,7 @@ from myModules.hand import Hand
 class Player:
     bet = 0
 
-    def __init__(self, name, chips=0):
+    def __init__(self, name, chips=200):
         self.name = name
         self.hand = Hand()
         self.chips = chips
@@ -28,12 +28,14 @@ class Player:
                     print('Bet amount can not exceed the available chips')
 
     def win_bet(self):
-        self.chips += 2 * self.bet
+        self.chips += self.bet
         self.bet = 0
+        return self.chips
 
     def lose_bet(self):
         self.chips -= self.bet
         self.bet = 0
+        return self.chips
 
     def hit(self, card):
         self.hand.add_card(card)

@@ -18,11 +18,13 @@ def init_chips():
 if __name__ == '__main__':
     dealer = Player('Dealer')
     print('\nWelcome to the Black Jack game\n')
-    player = Player('Player')
-    print('A player instance has been created\n')
-    player.chips = init_chips()
+    player_balance = 300
     while True:
+        dealer = Player('Dealer')
+        player = Player('Player')
+        player.chips = player_balance
         deck = Deck()
+        deck.shuffle()
         print('Player, please take a bet\n')
         player.take_bet()
         print('Dealing 2 cards to the dealer\n')
@@ -32,14 +34,14 @@ if __name__ == '__main__':
         player.hit(deck.deal())
         player.hit(deck.deal())
 
-        print(f"Dealer's hand : {dealer.hand.cards[0]} | --- HIDDEN --- |")
-        print(f"Player's hand : {player.hand.cards[0]} | {player.hand.cards[1]} |")
+        print(f"Dealer's hand :\t| {dealer.hand.cards[0]} \t| --- HIDDEN --- \t|")
+        print(f"Player's hand :\t| {player.hand.cards[0]} \t| {player.hand.cards[1]} \t|")
 
         player_value = player.hand.calculate_hand_value()
-        print(f"Your current hand value is : {player_value}")
+        print(f"\nYour current hand value is : {player_value}")
 
-        while player_value <= 21:
-            answer = input("Do you want to hit (Y/N) ? : ")
+        while player_value < 21:
+            answer = input("\nDo you want to hit (Y/N) ? : ")
             if answer.upper() == 'Y':
                 player.hit(deck.deal())
                 print(f"Player's hand : {player.hand}")
@@ -53,24 +55,24 @@ if __name__ == '__main__':
 
         if player.hand.calculate_hand_value() > 21:
             player_value = player.hand.calculate_hand_value()
-            #        print(f"Player hand : {player.hand}")
-            print('You lost !')
+            #  print(f"Player hand : {player.hand}")
+            print('>> You lost ! <<')
             print(f"Your current hand value is : {player_value}")
-            player.lose_bet()
+            player_balance = player.lose_bet()
 
         if dealer.hand.calculate_hand_value() <= 17:
             dealer.hit(deck.deal())
 
         dealer_value = dealer.hand.calculate_hand_value()
 
-        if dealer_value > 21 or dealer_value <= player_value <= 21:
-            print('You won !')
+        if dealer_value > 21 or dealer_value <= player_value < 21:
+            print('>> You won ! <<')
             print(f"Your current hand value is : {player_value}")
             print(f"Dealer's current hand value is : {dealer_value}")
-            player.win_bet()
+            player_balance = player.win_bet()
 
         print(player)
-        answer = input('Continue Y/N').upper()
+        answer = input('\nContinue Y/N :').upper()
         if answer == 'Y':
             continue
         elif answer == 'N':

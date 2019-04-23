@@ -24,7 +24,6 @@ class Deck:
         return random.shuffle(self.deck)
 
     def deal(self):
-        self.shuffle()
         return self.deck.pop()
 
 
