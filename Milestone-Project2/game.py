@@ -48,31 +48,33 @@ if __name__ == '__main__':
                 player_value = player.hand.calculate_hand_value()
                 continue
             elif answer.upper() == 'N':
+                player_value = player.hand.calculate_hand_value()
                 print(f"Your current hand value is : {player_value}")
                 break
-            else:
-                continue
 
         if player.hand.calculate_hand_value() > 21:
             player_value = player.hand.calculate_hand_value()
             #  print(f"Player hand : {player.hand}")
-            print('>> You lost ! <<')
+            print('\n>> You lost ! <<\n')
             print(f"Your current hand value is : {player_value}")
             player_balance = player.lose_bet()
 
-        if dealer.hand.calculate_hand_value() <= 17:
-            dealer.hit(deck.deal())
+        else:
 
-        dealer_value = dealer.hand.calculate_hand_value()
+            if dealer.hand.calculate_hand_value() <= 17:
+                dealer.hit(deck.deal())
 
-        if dealer_value > 21 or dealer_value <= player_value < 21:
-            print('>> You won ! <<')
-            print(f"Your current hand value is : {player_value}")
-            print(f"Dealer's current hand value is : {dealer_value}")
-            player_balance = player.win_bet()
+            dealer_value = dealer.hand.calculate_hand_value()
 
-        print(player)
-        answer = input('\nContinue Y/N :').upper()
+            if dealer_value > 21 or dealer_value <= player_value < 21:
+                print('\n>> You won ! <<\n')
+                print(f"Your current hand value is : {player_value}")
+                print(f"Dealer's current hand value is : {dealer_value}\n\n")
+                player_balance = player.win_bet()
+
+        print('Current balance : \n' + str(player))
+
+        answer = input('\nContinue Y/N : ').upper()
         if answer == 'Y':
             continue
         elif answer == 'N':
